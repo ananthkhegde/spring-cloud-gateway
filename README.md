@@ -2,9 +2,7 @@
 spring-cloud-gateway demonstration
 
 ## About project
-This projects demonstarates how to set up API gateway (reverse proxy) for underlying microservices (down stream servers).
-A major benefit of using API gateways is that they allow developers to encapsulate the internal structure of an application in multiple ways, 
-depending upon use case. This is because, in addition to accommodating direct requests, gateways can be used to invoke multiple back-end services and aggregate the results.
+This projects demonstarates how to set up API gateway (reverse proxy) for underlying microservices (down stream servers) using spring boot.A major benefit of using API gateways is that they allow developers to encapsulate the internal structure of an application in multiple ways, depending upon use case. This is because, in addition to accommodating direct requests, gateways can be used to invoke multiple back-end services and aggregate the results.
 
 This project is developed in Spring boot 2
 
@@ -28,18 +26,18 @@ This project is developed in Spring boot 2
 </dependency>
  ```
  
- Hystrix Netflix is required to plug circuit breaker at Gateway level. It can be customized for each microservice with different critiria.
+ Hystrix Netflix is required (optional) to plug circuit breaker at Gateway level. It can be customized for each microservice with different critiria.
  More detail regarding circuit beaker will be explained in seperate repository
  
  ## operation 
  
  * gateway listens to port 8080 port(configured in application.yml)
- * microservice1 listens to 8081 port(configured in application.properties)
- * microservice2 listens to 8082 port(configured in application.properties)
+ * microservice1 listens to port 8081(configured in application.properties)
+ * microservice2 listens to port 8082(configured in application.properties)
  * the following request http://localhost:8080/microservice1 will be routed to http://localhost:8081/microservice1
  * the following request http://localhost:8080/microservice2 will be routed to http://localhost:8082/microservice2
  
- * reverse proxy rule are prsent in gateway project (application.yml)
+ * reverse proxy rules are prsent in gateway project (application.yml)
  
  ```
 spring:
