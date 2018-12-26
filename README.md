@@ -42,7 +42,7 @@ This project is developed in Spring boot 2
  * reverse proxy rule are prsent in gateway project (application.yml)
  
  ```
- spring:
+spring:
   cloud:
     gateway:
       routes:
@@ -55,6 +55,22 @@ This project is developed in Spring boot 2
                name: microservice1
                fallbackUri: forward:/fallback
           uri: "http://localhost:8081"
+
+        - predicates:
+            - Path=/microservice2/**
+          filters:
+            - StripPrefix=0
+            - name: Hystrix
+              args:
+                name: microservice2
+                fallbackUri: forward:/fallback
+          uri: "http://localhost:8082"
+
+
+hystrix.command.microservice1.execution.isolation.thread.timeoutInMilliseconds: 5000
+hystrix.command.microservice2.execution.isolation.thread.timeoutInMilliseconds: 5000
+          
+          
  ```
  
  
