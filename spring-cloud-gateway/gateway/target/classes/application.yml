@@ -1,0 +1,30 @@
+server:
+  port : 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - predicates:
+            - Path=/microservice1/**
+          filters:
+            - StripPrefix=0
+            - name: Hystrix
+              args:
+               name: microservice1
+               fallbackUri: forward:/fallback
+          uri: "http://localhost:8081"
+
+        - predicates:
+            - Path=/microservice2/**
+          filters:
+            - StripPrefix=0
+            - name: Hystrix
+              args:
+                name: microservice2
+                fallbackUri: forward:/fallback
+          uri: "http://localhost:8082"
+
+
+hystrix.command.userservice.execution.isolation.thread.timeoutInMilliseconds: 10000
+hystrix.command.configservice.execution.isolation.thread.timeoutInMilliseconds: 10000
